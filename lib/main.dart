@@ -30,31 +30,32 @@ class MyHomePage extends HookWidget {
         textStream(); //* ここで_streamにtextStream()を代入することで、Streamが生成される
 
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center, //* 中央に寄せる
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(_text.value),
-            ),
-            FloatingActionButton(
-              onPressed: () async {
-                print("ボタンがクリックされました！");
-                _text.value = "";
-                await for (final currentText in _stream) {
-                  print("currentText: $currentText");
-                  _text.value += currentText;
-                }
-              },
-              child: const Icon(Icons.add),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(_text.value),
+              ),
             ),
           ],
         ),
       ),
-    ));
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          print("ボタンがクリックされました！");
+          _text.value = "";
+          await for (final currentText in _stream) {
+            print("currentText: $currentText");
+            _text.value += currentText;
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }
 
